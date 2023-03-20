@@ -6,24 +6,28 @@ Desenvolvendo um controle remoto.
 
 ### Integrantes
 
-- Nome1
-- Nome2
+- André Brito
+- Pedro Paulo Camargo
 
 ### Ideia
 
 <!--  Descreva aqui em poucas palavras qual a ideia do seu controle. Se ele vai ser de jogo ou de aplicação -->
+O controle a ser desenvolvido terá como objetivo controlar o software de música Spotify. O controle terá funções como avançar/voltar música, play/pause e também ativar o recurso "shuffle" do Spotify.
 
 ### Nome
 
 <!-- De um nome ao seu controle! -->
+Spotify embed remote controller
 
 ### Usuários 
 
 <!-- Descreva aqui quem seriam os possíveis usuários deste controle. -->
+Usuários da plataforma Spotify.
 
 ### Software/Jogo 
 
 <!-- Qual software que seu controle vai controlar? -->
+Spotify
 
 ### Jornada do usuários (3 pts)
 
