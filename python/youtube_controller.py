@@ -5,6 +5,10 @@ import time
 import logging
 import os
 import subprocess
+from ctypes import cast, POINTER
+from comtypes import CLSCTX_ALL
+from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+
 
 class MyControllerMap:
     def __init__(self):
@@ -32,22 +36,27 @@ class SerialControllerInterface:
         data = self.ser.read()
         logging.debug("Received DATA: {}".format(data))
 
-        if data == b'P':
+        if data == b'p':
             print("Play")
             pyautogui.keyDown(self.mapping.button['espaco'])
             pyautogui.keyUp(self.mapping.button['espaco'])
-        elif data == b'F':
+        elif data == b'f':
             print("Forward")
             pyautogui.hotkey(self.mapping.button['control'],self.mapping.button['direita'])
-        elif data == b'B':
+        elif data == b'v':
             print("Backward")
             pyautogui.hotkey(self.mapping.button['control'],self.mapping.button['esquerda'])
-        elif data == b'S':
+        elif data == b's':
             print("Shuffle")
             pyautogui.hotkey(self.mapping.button['control'],self.mapping.button['Shuffle'])
-        elif data == b'R':
+        elif data == b'r':
             print("Refresh")
             pyautogui.hotkey(self.mapping.button['control'],self.mapping.button['Refresh'])
+        else:
+            print("Volume")
+            volume_novo = int.from_bytes(data , "big")-98
+            volume.SetMasterVolumeLevel(volume_novo, None)
+
     
         self.incoming = self.ser.read()
 
@@ -67,6 +76,9 @@ class DummyControllerInterface:
 
 
 if __name__ == '__main__':
+    devices = AudioUtilities.GetSpeakers()
+    interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+    volume = cast(interface, POINTER(IAudioEndpointVolume))
     interfaces = ['dummy', 'serial']
     controller = SerialControllerInterface(port="COM5", baudrate=115200)
     '''n_teve_handshake= True
